@@ -11,10 +11,22 @@ const AddUsers = () => {
         const password = e.target.pass.value;
         const address = e.target.address.value;
         const user = {name: name, email: email, password: password, address: address}
-        console.log(user)
+        // console.log(user)
+        fetch("http://localhost:7000/user",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if (data.acknowledged){
+                window.alert("user added successfully")
+                e.target.reset()
+            }
+        })
 
-
-        e.target.reset()
     }
     return (
         <div>
