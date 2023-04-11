@@ -10,6 +10,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home/>,
+    loader: () =>fetch("http://localhost:7000/users")
   },
   {
     path: "/add",
