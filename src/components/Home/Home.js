@@ -6,6 +6,9 @@ const Home = () => {
     const users  = useLoaderData();
     const [usersData,setUsersData] = useState(users);
 
+
+
+    // delete users
     const handleDelete=user=>{
         const permission=window.confirm(`Are you sure you want to delete ${user.name}`)
         if (permission){
@@ -18,12 +21,16 @@ const Home = () => {
                     alert(`${user.name} has been deleted`)
                     const remainingUsers= usersData.filter(remainingUser=>remainingUser._id !== user._id)
                     setUsersData(remainingUsers)
-                    
+
                   } 
             })
         }
     }
 
+
+
+    // update user
+    
 
     return (
         <div>
@@ -35,6 +42,7 @@ const Home = () => {
                 usersData.map(user=>
                     <div key={user._id}>
                         <p>{user._id}, {user.name}, {user.email}, {user.address}</p>
+                        <Link to={`/users/${user._id}`}> <button>Update</button> </Link>
                         <button onClick={()=>handleDelete(user)}> delete user</button>
                         <br />
                         <br />
