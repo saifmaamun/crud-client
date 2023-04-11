@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
+import AddUsers from '../AddUsers/AddUsers';
 
 const Home = () => {
     const users  = useLoaderData();
     const [usersData,setUsersData] = useState(users);
 
     const handleDelete=user=>{
-        const permission=window.confirm(`Are you sure you want to delete {user.name}`)
+        const permission=window.confirm(`Are you sure you want to delete ${user.name}`)
         if (permission){
-            fetch(`http://localhost:7000/user/${user._id}`,{
+            fetch(`http://localhost:7000/users/${user._id}`,{
             method:"DELETE",
             })
             .then(res=>res.json())
             .then(data=>{
-                console.log(data)
+                if (data.deletedCount === 1) {
+                    alert(`${user.name} has been deleted`)
+                    const remainingUsers= usersData.filter(remainingUser=>remainingUser._id !== user._id)
+                    setUsersData(remainingUsers)
+                    
+                  } 
             })
         }
     }
@@ -21,6 +27,7 @@ const Home = () => {
 
     return (
         <div>
+            <Link to={"/add"}> <button>Add User</button></Link>
             <h2>
                 user {users.length}
             </h2>

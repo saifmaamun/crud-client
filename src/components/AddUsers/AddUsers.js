@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Home from '../Home/Home';
 
 const AddUsers = () => {
 
@@ -12,7 +14,7 @@ const AddUsers = () => {
         const address = e.target.address.value;
         const user = {name: name, email: email, password: password, address: address}
         // console.log(user)
-        fetch("http://localhost:7000/user",{
+        fetch("http://localhost:7000/users",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,6 +32,7 @@ const AddUsers = () => {
     }
     return (
         <div>
+            <Link to={"/"}> <button>Home</button> </Link>
             <h2>
                 Add users
             </h2>
