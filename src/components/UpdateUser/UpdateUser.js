@@ -11,14 +11,29 @@ const UpdateUser = () => {
     // update user on submit
     const updateUser=e=>{
         e.preventDefault();
-        fetch()
+        // console.log(userData)
+        fetch(`http://localhost:7000/users/${user._id}`,{
+            method:"PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+            })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.modifiedCount>0){
+                alert("user updated successfully")
+                console.log(data)
+                e.target.reset()
+            }
+        })
 
     }
 
     const getData=e=>{
         const field= e.target.name;
         const data = e.target.value;
-        const updatedUser={...user}
+        const updatedUser={...userData}
         updatedUser[field] = data;
         setUsersData(updatedUser)
     }
